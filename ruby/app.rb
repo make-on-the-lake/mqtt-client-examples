@@ -7,11 +7,9 @@ require 'json'
 HOST = 'otis.leandog.com'
 PORT = 52122
 USERNAME = 'meetup'
-#PASSWORD = '<replace_with_password>'
-PASSWORD = 'H1uJ6FUK4ELx'
+PASSWORD = '<replace_with_password>'
 
-#UID = '<replace_with_your_name_or_handle>'
-UID = 'garygj'
+UID = '<replace_with_your_name_or_handle>'
 ONLINE_TOPIC = "/boat/meetup/#{UID}/online"
 STATUS_TOPIC = "/boat/meetup/#{UID}/status"
 
