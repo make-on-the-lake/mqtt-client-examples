@@ -5,11 +5,9 @@ var mqtt = require('mqtt');
 
 const HOST_URL = 'mqtt://otis.leandog.com:52122';
 const USERNAME = 'meetup';
-//const PASSWORD = '<replace_with_password>';
-const PASSWORD = 'YqVhtVE9ogss';
+const PASSWORD = '<replace_with_password>';
 
-//const UID = '<replace_with_your_name_or_handle>';
-const UID = 'garyjohnson';
+const UID = '<replace_with_your_name_or_handle>';
 const ONLINE_TOPIC = '/boat/meetup/' + UID + '/online';
 const STATUS_TOPIC = '/boat/meetup/' + UID + '/status';
 
