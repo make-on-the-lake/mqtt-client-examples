@@ -37,32 +37,44 @@ void setup() {
 
   setup_wifi();
   mqttClient.setServer(MQTT_HOST, 52122);
+  mqttClient.setCallback(onMessageReceived);
 }
 
 void loop() {
   if (!mqttClient.connected()) {
     reconnect();
+    mqttClient.publish(ONLINE_TOPIC, "1", true);
+    publishStatus();
+    mqttClient.subscribe("/boat/meetup/#");
   }
+
   mqttClient.loop();
+}
 
-  long now = millis();
-  if (now - lastMsg > 10000) {
-    lastMsg = now;
+void onMessageReceived(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Got topic \"");
+  Serial.print(topic);
+  Serial.print("\" with payload \"");
+  for (int i=0;i<length;i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println("\"");
+}
 
-    Serial.println("Building payload message");
-    sprintf(payload, PAYLOAD_TEMPLATE, message, millis());
-    Serial.println(payload);
+void publishStatus() {
+  Serial.println("Building payload message");
+  sprintf(payload, PAYLOAD_TEMPLATE, message, millis());
+  Serial.println(payload);
 
-    Serial.print("Publishing status to ");
-    Serial.print(STATUS_TOPIC);
-    Serial.print("...");
-    
-    success = mqttClient.publish(STATUS_TOPIC, payload, true);
-    if(success) {
-      Serial.println("published!");
-    } else {
-      Serial.println("failed! Make sure your message is under the max length.");
-    }
+  Serial.print("Publishing status to ");
+  Serial.print(STATUS_TOPIC);
+  Serial.print("...");
+  
+  success = mqttClient.publish(STATUS_TOPIC, payload, true);
+  if(success) {
+    Serial.println("published!");
+  } else {
+    Serial.println("failed! Make sure your message is under the max length.");
   }
 }
 
@@ -93,7 +105,6 @@ void reconnect() {
     // Attempt to connect
     if (mqttClient.connect(UID, MQTT_USERNAME, MQTT_PASSWORD, ONLINE_TOPIC, 1, true, "0")) {
       Serial.println("connected");
-      mqttClient.publish(ONLINE_TOPIC, "1", true);
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqttClient.state());
