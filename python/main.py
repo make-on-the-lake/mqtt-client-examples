@@ -9,9 +9,9 @@ import paho.mqtt.client as mqtt
 HOST = 'otis.leandog.com'
 PORT = 52122
 USERNAME = 'meetup'
-PASSWORD = '<replace_with_password>'
+PASSWORD = 'ze9mtHXHVYOp'
 
-UID = '<replace_with_your_name_or_handle>'
+UID = 'dude'
 ONLINE_TOPIC = '/boat/meetup/{}/online'.format(UID)
 STATUS_TOPIC = '/boat/meetup/{}/status'.format(UID)
 
